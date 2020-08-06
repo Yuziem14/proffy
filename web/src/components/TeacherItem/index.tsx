@@ -1,40 +1,57 @@
 import React from 'react';
 
+import api from '../../services/api';
+
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 
 import './styles.css';
 
-function TeacherItem() {
+export interface Teacher {
+  id: number;
+  name: string;
+  avatar: string;
+  phone_number: string;
+  bio: string;
+  subject: string;
+  cost: number;
+}
+interface TeacherItemProps {
+  teacher: Teacher;
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+  function createNewConnection() {
+    api.post('connections', {
+      user_id: teacher.id,
+    });
+  }
   return (
     <article className='teacher-item'>
       <header>
-        <img
-          src='https://avatars3.githubusercontent.com/u/42475688?s=460&u=6b2fb798bcd408da8bcc5304311c17babb11e651&v=4g'
-          alt='Yuri Ziemba'
-        />
+        <img src={teacher.avatar} alt={teacher.name} />
         <div>
-          <strong>Yuri Ziemba</strong>
-          <span>Química</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
-      <p>Entusiasta das melhores tecnologias de química avançada.</p>
-      <p>
-        Apaixonado por explodir coisas em laboratório e por mudar a vida das
-        pessoas através de experiências. Mais de 200.000 pessoas já passaram por
-        uma das minhas explosões.
-      </p>
+      <p>{teacher.bio}</p>
       <footer>
         <p>
           Preço/hora
-          <strong>R$ 20,00</strong>
+          <strong>R$ {teacher.cost}</strong>
         </p>
-        <button type='button'>
+        <a
+          target='_blank'
+          href={`https://wa.me/${teacher.phone_number}`}
+          type='button'
+          onClick={createNewConnection}
+        >
           <img src={whatsappIcon} alt='Whatsapp Icon' />
           Entrar em contato
-        </button>
+        </a>
       </footer>
     </article>
   );
-}
+};
 
 export default TeacherItem;
