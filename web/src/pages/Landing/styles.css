@@ -62,7 +62,7 @@
 }
 
 #page-landing-content .buttons-container a.give-classes {
-  background: var(--color-secundary);
+  background: var(--color-secondary);
 }
 
 #page-landing-content .buttons-container a.study:hover {
@@ -70,7 +70,7 @@
 }
 
 #page-landing-content .buttons-container a.give-classes:hover {
-  background: var(--color-secundary-dark);
+  background: var(--color-secondary-dark);
 }
 
 #page-landing-content .total-connections {
