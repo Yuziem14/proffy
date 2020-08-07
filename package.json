@@ -6,5 +6,8 @@
   "scripts": {},
   "keywords": [],
   "author": "Yuri Ziemba",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
