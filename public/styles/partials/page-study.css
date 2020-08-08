@@ -89,6 +89,7 @@
   background: var(--color-box-footer);
   border-top: 1px solid var(--color-line-in-white);
   padding: 3.2rem 2rem;
+  margin-top: 4rem;
 }
 
 .teacher-item footer p {
@@ -119,6 +120,12 @@
   padding: 0 0.8rem;
   margin-left: 1.6rem;
   transition: background 0.2s;
+}
+
+#page-study main .no-results {
+  max-width: 30rem;
+  text-align: center;
+  margin: 12rem auto;
 }
 
 .teacher-item footer .button:hover {
