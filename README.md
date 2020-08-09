@@ -81,7 +81,7 @@ This project was build with:
 
 # :art: Layouts
 
-> All project layouts is located in :file_folder: [.github/layouts](https://github.com/Yuziem14/proffy/tree/master/.github/layouts)
+> All project layouts is located in :file_folder: [.github/layouts](https://github.com/Yuziem14/proffy/tree/proffy/discovery/.github/layouts)
 
 This project design and prototype was build with [Figma](https://www.figma.com/).
 
