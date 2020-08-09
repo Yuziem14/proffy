@@ -1,5 +1,7 @@
 const Database = require('./database/db');
 const createProffy = require('./database/createProffy');
+const createClass = require('./database/createClass');
+const createSchedule = require('./database/createSchedule');
 const {
   subjects,
   weekdays,
@@ -91,7 +93,21 @@ async function saveClasses(req, res) {
   try {
     const db = await Database;
 
-    await createProffy(db, { ...proffy, classObject, schedules });
+    const { id: proffy_id } = await createProffy(db, proffy);
+
+    const { id: class_id } = await createClass(db, {
+      ...classObject,
+      proffy_id,
+    });
+
+    const insertAllSchedules = schedules.map(async schedule => {
+      await createSchedule(db, {
+        ...schedule,
+        class_id,
+      });
+    });
+
+    await Promise.all(insertAllSchedules);
 
     let queryString = `?subject=${data.subject}&weekday=${data.weekday[0]}&time=${data.time_from[0]}`;
 
