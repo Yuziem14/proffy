@@ -8,14 +8,14 @@ const {
 } = require('./utils/format');
 
 function sendPageLanding(req, res) {
-  return res.render('index.html');
+  return res.render('index.njk');
 }
 
 async function sendPageStudy(req, res) {
   const filters = req.query;
 
   if (!filters.subject || !filters.weekday || !filters.time) {
-    return res.render(`study.html`, {
+    return res.render(`study.njk`, {
       filters,
       subjects,
       weekdays,
@@ -50,7 +50,7 @@ async function sendPageStudy(req, res) {
       };
     });
 
-    return res.render('study.html', {
+    return res.render('study.njk', {
       proffys: serializedProffys,
       filters,
       subjects,
@@ -62,7 +62,7 @@ async function sendPageStudy(req, res) {
 }
 
 function sendPageGiveClasses(req, res) {
-  return res.render('give-classes.html', { subjects, weekdays });
+  return res.render('give-classes.njk', { subjects, weekdays });
 }
 
 async function saveClasses(req, res) {

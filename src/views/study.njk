@@ -1,0 +1,75 @@
+{% extends 'layouts/master.njk' %}
+{% set pageId = 'page-study' %}
+{% set showHeader = true %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/styles/partials/header.css"/>
+  <link rel="stylesheet" href="/styles/partials/forms.css"/>
+  <link rel="stylesheet" href="/styles/partials/page-study.css"/>
+{% endblock styles %}
+
+{% block headerContent %}
+  <strong>Estes são os proffys disponíveis.</strong>
+  <form id="search-teachers">
+    <div class="select-block">
+      <label for="subject">Matéria</label>
+      <select name="subject" id="subject">
+        <option value="" disabled="disabled" hidden="hidden">
+          Selecione uma opção
+        </option>
+        {% for subject in subjects %}
+          <option value="{{ loop.index }}" {{ "selected" if filters.subject == loop.index }}>{{ subject }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="select-block">
+      <label for="weekday">Dia da semana</label>
+      <select name="weekday" id="weekday">
+        <option value="" disabled="disabled" hidden="hidden">
+          Selecione uma opção
+        </option>
+        {% for weekday in weekdays %}
+          <option value="{{ loop.index0 }}" {{ "selected" if filters.weekday == loop.index0 }}>{{ weekday }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="input-block">
+      <label for="time">Hora</label>
+      <input type="time" name="time" id="time" value="{{filters.time}}"/>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+{% endblock headerContent %}
+
+{% block content %}
+  <main>
+    {% if proffys == '' %}
+      <p class="no-results">Nenhum professor encontrado com a sua pesquisa.</p>
+    {% else %}
+
+      {% for proffy in proffys %}
+        <article class="teacher-item">
+          <header>
+            <img src="{{ proffy.avatar }}" alt="{{ proffy.name }}"/>
+            <div>
+              <strong>{{ proffy.name }}</strong>
+              <span>{{ proffy.subject }}</span>
+            </div>
+          </header>
+          <p>
+            {{ proffy.bio }}
+          </p>
+          <footer>
+            <p>Preço/Hora<strong>R$
+                {{ proffy.cost }}</strong>
+            </p>
+            <a target="_blank" href="https://api.whatsapp.com/send?l=pt_BR&phone={{ proffy.phone_number }}&text=Tenho interesse na sua aula de {{ proffy.subject }}, {{ proffy.name }}" class="button">
+              <img src="/images/icons/whatsapp.svg" alt="Whatsapp Icon"/>Entrar em contato
+            </a>
+          </footer>
+        </article>
+      {% endfor %}
+
+    {% endif %}
+  </main>
+{% endblock content %}

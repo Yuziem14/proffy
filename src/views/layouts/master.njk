@@ -1,0 +1,32 @@
+{% set title = 'Proffy | Sua plataforma de estudos online.' %}
+
+<!DOCTYPE html>
+<html lang="pt_br">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="theme-color" content="#8257E5"/>
+    <link rel="stylesheet" href="/styles/main.css"/>
+    {% block styles %}{% endblock styles %}
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon"/>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+
+    {% block scripts %}{% endblock scripts %}
+
+    <title>{{ title }}</title>
+  </head>
+  <body id="{{ pageId }}">
+    <div class="container">
+      {% if showHeader %}
+        <div class="page-header">
+          {% include 'layouts/partials/_header.njk' %}
+          <div class="header-content">
+            {% block headerContent %}{% endblock headerContent %}
+          </div>
+        </div>
+      {% endif %}
+      {% block content %}{% endblock content %}
+    </div>
+  </body>
+</html>
