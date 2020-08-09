@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Linking } from 'react-native';
+import { View, Text, Image, Linking, Platform } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -33,7 +33,16 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
     api.post('connections', {
       user_id: teacher.id,
     });
-    Linking.openURL(`whatsapp://send?phone=${teacher.phone_number}`);
+    Linking.openURL(`whatsapp://send?phone=${teacher.phone_number}`).catch(
+      err => {
+        const whatsappDownloadLink =
+          Platform.OS === 'ios'
+            ? 'https://apps.apple.com/br/app/whatsapp-messenger/id310633997'
+            : 'https://play.google.com/store/apps/details?id=com.whatsapp&hl=pt_BR';
+
+        Linking.openURL(whatsappDownloadLink);
+      }
+    );
   }
 
   async function handleToggleFavorite() {
