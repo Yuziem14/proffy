@@ -26,5 +26,5 @@ server.post('/save-classes', saveClasses);
 
 const PORT = 5500;
 server.listen(PORT, () =>
-  console.log('Listening on http://127.0.0.1:3333/ ...')
+  console.log(`Listening on http://127.0.0.1:${PORT}/ ...`)
 );
