@@ -4,7 +4,7 @@
   "description": "The Proffy wants to help students finds teachers",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
+    "dev": "nodemon .",
     "db:migrate": "node src/database/db.js",
     "db:reset": "node src/database/db.js --reset",
     "db:seed": "node src/database/seeds/databaseSeeder.js"
