@@ -32,7 +32,7 @@
 - [Installation](#white_check_mark-installation)
 - [Quick Start](#rocket-quick-start)
 - [Technologies](#fire-technologies)
-- [Layouts]('#art-layouts')
+- [Layouts](#art-layouts)
 - [Contributing](#robot-contributing)
 - [License](#pencil-license)
 
