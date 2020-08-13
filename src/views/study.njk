@@ -1,3 +1,4 @@
+{% from 'layouts/partials/_select.njk' import select as Select %}
 {% extends 'layouts/master.njk' %}
 {% set pageId = 'page-study' %}
 {% set showHeader = true %}
@@ -5,33 +6,24 @@
 {% block styles %}
   <link rel="stylesheet" href="/styles/partials/header.css"/>
   <link rel="stylesheet" href="/styles/partials/forms.css"/>
+  <link rel="stylesheet" href="/styles/partials/custom-select.css"/>
   <link rel="stylesheet" href="/styles/partials/page-study.css"/>
 {% endblock styles %}
+
+{% block scripts %}
+  <script src="/scripts/customSelect.js" defer="defer"></script>
+{% endblock scripts %}
 
 {% block headerContent %}
   <strong>Estes são os proffys disponíveis.</strong>
   <form id="search-teachers">
     <div class="select-block">
       <label for="subject">Matéria</label>
-      <select name="subject" id="subject">
-        <option value="" disabled="disabled" hidden="hidden">
-          Selecione uma opção
-        </option>
-        {% for subject in subjects %}
-          <option value="{{ loop.index }}" {{ "selected" if filters.subject == loop.index }}>{{ subject }}</option>
-        {% endfor %}
-      </select>
+      {{ Select('subject', 'Matéria', subjects[0].value, subjects) }}
     </div>
     <div class="select-block">
       <label for="weekday">Dia da semana</label>
-      <select name="weekday" id="weekday">
-        <option value="" disabled="disabled" hidden="hidden">
-          Selecione uma opção
-        </option>
-        {% for weekday in weekdays %}
-          <option value="{{ loop.index0 }}" {{ "selected" if filters.weekday == loop.index0 }}>{{ weekday }}</option>
-        {% endfor %}
-      </select>
+      {{ Select('weekday', 'Dia', weekdays[0].value, weekdays) }}
     </div>
     <div class="input-block">
       <label for="time">Hora</label>

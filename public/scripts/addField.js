@@ -6,13 +6,15 @@ function addNewScheduleItem() {
     .querySelector('.schedule-item')
     .cloneNode(true);
 
-  const fields = scheduleItemClone.querySelectorAll('input');
+  const fields = scheduleItemClone.querySelectorAll('input:not(.option)');
 
   fields.forEach(field => {
     field.value = '';
   });
 
   scheduleItemsContainer.appendChild(scheduleItemClone);
+
+  customSelect.mountNewSelectNode(scheduleItemClone);
 }
 
 addTimeButton.addEventListener('click', addNewScheduleItem);

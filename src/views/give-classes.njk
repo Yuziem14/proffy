@@ -1,3 +1,4 @@
+{% from 'layouts/partials/_select.njk' import select as Select %}
 {% extends 'layouts/master.njk' %}
 {% set pageId = 'page-give-classes' %}
 {% set showHeader = true %}
@@ -5,10 +6,12 @@
 {% block styles %}
   <link rel="stylesheet" href="/styles/partials/header.css"/>
   <link rel="stylesheet" href="/styles/partials/forms.css"/>
+  <link rel="stylesheet" href="/styles/partials/custom-select.css"/>
   <link rel="stylesheet" href="/styles/partials/page-give-classes.css"/>
 {% endblock styles %}
 
 {% block scripts %}
+  <script src="/scripts/customSelect.js" defer="defer"></script>
   <script src="/scripts/addField.js" defer="defer"></script>
 {% endblock scripts %}
 
@@ -47,19 +50,14 @@
         <legend>Sobre a aula</legend>
         <div class="select-block">
           <label for="subject">Matéria</label>
-          <select name="subject" id="subject" required="required">
-            <option value="" hidden="">Selecione uma opção</option>
-            {% for subject in subjects %}
-              <option value="{{ loop.index }}">{{ subject }}</option>
-            {% endfor %}
-          </select>
-          <div class="input-block">
-            <label for="cost">
-              Custo da sua hora/aula
-              <small>(R$)</small>
-            </label>
-            <input type="number" name="cost" id="cost" required="required"/>
-          </div>
+          {{ Select('subject', '', '', subjects) }}
+        </div>
+        <div class="input-block">
+          <label for="cost">
+            Custo da sua hora/aula
+            <small>(R$)</small>
+          </label>
+          <input type="number" name="cost" id="cost" required="required"/>
         </div>
       </fieldset>
 
@@ -71,40 +69,34 @@
         <div class="schedule-item">
           <div class="select-block">
             <label for="weekday">Dia da semana</label>
-            <select name="weekday[]" id="weekday">
-              <option value="" hidden="hidden">Selecione uma opção</option>
-            </option>
-            {% for weekday in weekdays %}
-              <option value="{{ loop.index0 }}">{{ weekday }}</option>
-            {% endfor %}
-          </select>
-        </div>
+            {{ Select('weekday[]', '', '', weekdays) }}
+          </div>
 
-        <div class="input-block">
-          <label for="time_from">Das</label>
-          <input type="time" name="time_from[]" id="time_from" required="required"/>
-        </div>
+          <div class="input-block">
+            <label for="time_from">Das</label>
+            <input type="time" name="time_from[]" id="time_from" required="required"/>
+          </div>
 
-        <div class="input-block">
-          <label for="time_to">Até</label>
-          <input type="time" name="time_to[]" id="time_to" required="required"/>
+          <div class="input-block">
+            <label for="time_to">Até</label>
+            <input type="time" name="time_to[]" id="time_to" required="required"/>
+          </div>
         </div>
-      </div>
-    </fieldset>
-  </form>
+      </fieldset>
+    </form>
 
-  <footer>
-    <div>
-      <img src="/images/icons/warning.svg" alt="Aviso importante"/>
+    <footer>
       <div>
-        <p>
-          Importante!
-          <p>Preencha todos os dados</p>
-        </p>
+        <img src="/images/icons/warning.svg" alt="Aviso importante"/>
+        <div>
+          <p>
+            Importante!
+            <p>Preencha todos os dados</p>
+          </p>
+        </div>
       </div>
-    </div>
 
-    <button type="submit" form="create-class">Salvar cadastro</button>
-  </footer>
-</main>
+      <button type="submit" form="create-class">Salvar cadastro</button>
+    </footer>
+  </main>
 {% endblock content %}

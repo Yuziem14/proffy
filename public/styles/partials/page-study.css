@@ -11,11 +11,15 @@
   color: var(--color-text-in-primary);
 }
 
+#search-teachers .select-block .select label {
+  color: var(--color-text-base);
+}
+
 #search-teachers .select-block {
   margin-bottom: 1.4rem;
 }
 
-#search-teachers button {
+#search-teachers button:not(.dropdown-button) {
   width: 100%;
   height: 5.6rem;
   display: flex;
@@ -32,7 +36,7 @@
   margin-top: 3.2rem;
 }
 
-#search-teachers button:hover {
+#search-teachers button:not(.dropdown-button):hover {
   background: var(--color-secondary-dark);
 }
 
@@ -153,9 +157,11 @@
   }
 
   #search-teachers {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
+    align-items: flex-end;
     position: absolute;
     bottom: -24px;
   }
