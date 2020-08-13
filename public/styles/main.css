@@ -1,5 +1,6 @@
 :root {
   --color-background: #f0f0f7;
+  --color-background-dark: #333;
   --color-primary-lighter: #9871f5;
   --color-primary-light: #916bea;
   --color-primary: #8257e5;
@@ -14,6 +15,7 @@
   --color-text-base: #6a6180;
   --color-line-in-white: #e6e6f0;
   --color-input-background: #f8f8fc;
+  --color-input-hover-background: #ebebf5;
   --color-button-text: #ffffff;
   --color-box-base: #ffffff;
   --color-box-footer: #fafafc;
@@ -47,9 +49,27 @@ textarea {
   color: var(--color-text-base);
 }
 
+::-webkit-scrollbar {
+  width: 0.8rem;
+  background: var(--color-background-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to top,
+    var(--color-primary-lighter),
+    var(--color-secondary)
+  );
+  border-radius: 0.8rem;
+}
+
 .container {
   width: 90vw;
   max-width: 700px;
+}
+
+.hidden {
+  display: none !important;
 }
 
 @media (min-width: 700px) {
