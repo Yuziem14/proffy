@@ -1,0 +1,16 @@
+{% macro select(name, placeholder, defaultValue, options = []) %}
+  <div class="select">
+    <button type="button" class="dropdown-button">
+      <span class="select-placeholder text-placeholder" data-placeholder="{{ placeholder if placeholder else 'Selecione uma opção' }}"></span>
+      <span class="select-icon"></span>
+    </button>
+    <div data-default-to="{{ defaultValue }}" class="dropdown hidden">
+      {% for option in options %}
+        <div class="option-box">
+          <label for="option-{{ name | replace('[]', '') }}-{{ option.value }}" class="option-label">{{ option.label }}</label>
+          <input id="option-{{ name | replace('[]', '') }}-{{ option.value }}" class="option" type="checkbox" name="{{ name }}" value="{{ option.value }}">
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endmacro %}
