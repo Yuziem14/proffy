@@ -62,7 +62,9 @@
 }
 
 .select .option-box:last-child {
+  border-bottom: var(--color-line-in-white) solid 0.16rem;
   border-radius: 0 0 0.8rem 0.8rem;
+  margin-bottom: 1.6rem;
 }
 
 .select .option-box:hover {

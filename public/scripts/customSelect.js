@@ -2,7 +2,9 @@ const customSelect = {
   mountNewSelectNode,
   mountNewSelectItem,
   selects: document.querySelectorAll('.select') || [],
+  activeSelects: [],
 };
+
 let params = {};
 
 function _uncheckAllOptions(select) {
@@ -109,8 +111,8 @@ function isPlaceholder(element) {
   return placeholder === value;
 }
 
-function toggleSelectDropdown(clickedElement) {
-  const key = clickedElement.dataset.id;
+function toggleSelectDropdown(elementDOM) {
+  const key = elementDOM.dataset.id;
   const selectBox = document.querySelector(`#select-${key}`);
   const dropDownButton = selectBox.querySelector(`.dropdown-button`);
   const dropDownBox = selectBox.querySelector(`.dropdown`);
@@ -123,10 +125,15 @@ function toggleSelectDropdown(clickedElement) {
   dropDownButton.classList.remove('active-dropdown-button');
   dropDownIcon.classList.remove('invert-arrow');
 
+  customSelect.activeSelects = customSelect.activeSelects.filter(select => {
+    return select.dataset.id !== selectBox.dataset.id;
+  });
+
   if (!dropDownBox.classList.contains('hidden')) {
     selectBox.classList.add('active-select');
     dropDownButton.classList.add('active-dropdown-button');
     dropDownIcon.classList.add('invert-arrow');
+    customSelect.activeSelects.push(selectBox);
   }
 }
 
@@ -156,3 +163,29 @@ function handleSelectOption(option) {
 }
 
 window.addEventListener('load', initialize);
+window.addEventListener('click', e => {
+  const { activeSelects } = customSelect;
+  const isNoneActive = activeSelects.length === 0;
+  if (isNoneActive) return;
+
+  const { activeElement } = document;
+  const isSelectElement = activeElement.classList.contains(
+    'active-dropdown-button'
+  );
+
+  if (!isNoneActive && !isSelectElement) {
+    activeSelects.forEach(activeSelect => {
+      toggleSelectDropdown(activeSelect);
+    });
+  }
+
+  if (isSelectElement) {
+    const currentSelect = document.querySelector(
+      `#select-${activeElement.dataset.id}`
+    );
+    activeSelects.forEach(activeSelect => {
+      toggleSelectDropdown(activeSelect);
+    });
+    toggleSelectDropdown(currentSelect);
+  }
+});
