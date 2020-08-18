@@ -1,3 +1,4 @@
+{% from 'layouts/partials/_header.njk' import Header %}
 {% set title = 'Proffy | Sua plataforma de estudos online.' %}
 
 <!DOCTYPE html>
@@ -20,7 +21,7 @@
     <div class="container">
       {% if showHeader %}
         <div class="page-header">
-          {% include 'layouts/partials/_header.njk' %}
+          {{ Header(pageTitle or '') }}
           <div class="header-content">
             {% block headerContent %}{% endblock headerContent %}
           </div>
