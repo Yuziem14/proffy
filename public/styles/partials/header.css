@@ -4,6 +4,12 @@
   background: var(--color-primary);
 }
 
+.page-header .top-bar {
+  background: var(--color-primary-dark);
+  min-height: 6.4rem;
+  border-bottom: var(--color-primary-darker) 1px solid;
+}
+
 .page-header .top-bar-container {
   width: 90%;
   display: flex;
@@ -14,12 +20,22 @@
 }
 
 .page-header .top-bar-container a {
+  color: var(--color-navigate-purple);
   height: 3.2rem;
   transition: opacity 0.2s;
 }
 
 .page-header .top-bar-container a:hover {
   opacity: 0.6;
+}
+
+.page-header .page-title {
+  font-family: Archivo, sans-serif;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  text-align: center;
+  color: var(--color-text-in-purple);
 }
 
 .page-header .top-bar-container > img {

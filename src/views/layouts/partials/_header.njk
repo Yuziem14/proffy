@@ -1,6 +1,11 @@
-<div class="top-bar-container">
-  <a href="/">
-    <img src="/images/icons/back.svg" alt="Voltar"/>
-  </a>
-  <img src="/images/logo.svg" alt="Proffy"/>
-</div>
+{% macro Header(title) %}
+  <div class="top-bar">
+    <div class="top-bar-container">
+      <a href="/">
+        <img src="/images/icons/back.svg" alt="Voltar"/>
+      </a>
+      <p class="page-title">{{ title }}</p>
+      <img src="/images/logo.svg" alt="Proffy"/>
+    </div>
+  </div>
+{% endmacro %}
