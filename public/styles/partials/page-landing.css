@@ -3,16 +3,44 @@
 }
 
 #page-landing {
-  background: var(--color-primary);
+  display: block;
+}
+
+#page-landing > .container {
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
 }
 
 #page-landing .container {
   color: var(--color-text-in-primary);
 }
 
+.page-top,
+.page-down {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-top {
+  background: var(--color-primary);
+}
+
+.page-down {
+  justify-content: flex-start;
+}
+
+#page-landing .page-down .container {
+  color: var(--color-text-complement);
+}
+
 .logo-container {
   text-align: center;
-  margin-top: 0.8rem;
+  margin-top: 1.6rem;
   margin-bottom: 3.2rem;
 }
 
@@ -29,6 +57,19 @@
 
 .hero-image {
   width: 100%;
+}
+
+.welcome {
+  font-family: Poppins, sans-serif;
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+  text-align: center;
+  color: var(--color-text-base);
+  margin-top: 3.2rem;
+}
+
+.welcome p + p {
+  font-weight: 700;
 }
 
 .buttons-container {
@@ -73,11 +114,10 @@
   background: var(--color-secondary-dark);
 }
 
-.total-connections {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.total-connections p {
   font-size: 1.8rem;
+  line-height: 3.2rem;
+  text-align: center;
   margin-bottom: 2.4rem;
 }
 
@@ -92,19 +132,32 @@
 }
 
 @media (min-width: 1100px) {
-  #page-landing .container {
+  #page-landing > .container {
+    grid-template-rows: 528px 1fr;
+    gap: 56px;
+  }
+
+  .page-top .container,
+  .page-down .container {
     max-width: 1100px;
+  }
+
+  .page-top .container {
     display: grid;
-    grid-template-columns: 2fr 1fr 2fr;
-    grid-template-rows: 350px 1fr;
-    grid-template-areas:
-      'proffy hero-image hero-image'
-      'buttons buttons total-connections';
-    gap: 88px;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 56px;
+  }
+
+  .page-down .container {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr) 2fr;
+    grid-template-areas: 'welcome total-connections buttons';
+    column-gap: 56px;
   }
 
   .logo-container {
-    grid-area: proffy;
     align-self: center;
     text-align: initial;
     margin: 0;
@@ -115,20 +168,42 @@
   }
 
   .hero-image {
-    grid-area: hero-image;
-    height: 350px;
+    height: 528px;
+  }
+
+  .welcome {
+    grid-area: welcome;
+    justify-self: start;
+    font-size: 2.8rem;
+    text-align: initial;
+    margin: 0;
   }
 
   .buttons-container {
     grid-area: buttons;
-    justify-content: flex-start;
+    justify-content: start;
     margin: 0;
   }
 
+  .buttons-container a {
+    width: 100%;
+    min-height: 16rem;
+    font-size: 3.2rem;
+  }
+
   .total-connections {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     grid-area: total-connections;
     justify-self: end;
-    font-size: 1.2rem;
+  }
+
+  .total-connections p {
+    max-width: 18rem;
+    display: block;
+    font-size: 1.6rem;
+    text-align: right;
     margin: 0;
   }
 }
