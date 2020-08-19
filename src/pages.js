@@ -15,34 +15,43 @@ function sendPageLanding(req, res) {
 
 async function sendPageStudy(req, res) {
   const filters = req.query;
+  const isFiltersInvalid =
+    !filters.subject || !filters.weekday || !filters.time;
 
-  if (!filters.subject || !filters.weekday || !filters.time) {
-    return res.render(`study.njk`, {
-      filters,
-      subjects,
-      weekdays,
-    });
-  }
-
-  const timeToMinutes = convertHoursToMinutes(filters.time);
+  const timeToMinutes = convertHoursToMinutes(filters.time || '0:00');
 
   const query = `
-    SELECT classes.*, proffys.*
-    FROM proffys
-    JOIN classes ON (classes.proffy_id = proffys.id)
-    WHERE EXISTS(
-      SELECT class_schedule.*
-      FROM class_schedule
-      WHERE class_schedule.class_id = classes.id
-      AND class_schedule.weekday = ${filters.weekday}
-      AND class_schedule.time_from <= ${timeToMinutes}
-      AND class_schedule.time_to > ${timeToMinutes}
-    )
-    AND classes.subject = ${filters.subject}
+      SELECT classes.*, proffys.*
+      FROM proffys
+      JOIN classes ON (classes.proffy_id = proffys.id)
+      WHERE EXISTS(
+        SELECT class_schedule.*
+        FROM class_schedule
+        WHERE class_schedule.class_id = classes.id
+        AND class_schedule.weekday = ${filters.weekday}
+        AND class_schedule.time_from <= ${timeToMinutes}
+        AND class_schedule.time_to > ${timeToMinutes}
+      )
+      AND classes.subject = ${filters.subject}
+    `;
+
+  const totalProffysQuery = `
+    SELECT count(*) as total FROM proffys
   `;
 
   try {
     const db = await Database;
+    const { total } = await db.get(totalProffysQuery);
+
+    if (isFiltersInvalid) {
+      return res.render(`study.njk`, {
+        filters,
+        subjects,
+        weekdays,
+        totalProffys: total,
+      });
+    }
+
     const proffys = await db.all(query);
 
     const serializedProffys = proffys.map(proffy => {
@@ -57,6 +66,7 @@ async function sendPageStudy(req, res) {
       filters,
       subjects,
       weekdays,
+      totalProffys: total,
     });
   } catch (err) {
     console.log(err);

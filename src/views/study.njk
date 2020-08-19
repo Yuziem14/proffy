@@ -17,6 +17,17 @@
 
 {% block headerContent %}
   <strong>Estes são os proffys disponíveis.</strong>
+  <div class="header-description">
+    <div>
+      <img src="/images/icons/smile.svg" alt="Smile">
+      <p>
+        Nós temos
+        {{ totalProffys or 0 }}
+        <span></span>
+        professores.
+      </p>
+    </div>
+  </div>
   <form id="search-teachers">
     <div class="select-block">
       <label for="subject">Matéria</label>

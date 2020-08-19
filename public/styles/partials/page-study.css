@@ -152,6 +152,17 @@
 }
 
 @media (min-width: 700px) {
+  .page-header .header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .page-header .header-content .header-description {
+    margin: 0;
+  }
+
   #page-study .container {
     max-width: 100vw;
   }
