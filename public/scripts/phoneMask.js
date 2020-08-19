@@ -5,13 +5,11 @@ phoneInputs.forEach(input => {
     const currentValue = e.target.value;
     const { newValue, maskedValue } = transformValue(currentValue);
 
-    if (e.inputType === 'deleteContentBackward') {
-      e.target.dataset.value = newValue;
-      return;
-    }
-
     e.target.dataset.value = newValue;
-    e.target.value = maskedValue;
+
+    if (e.inputType !== 'deleteContentBackward') {
+      e.target.value = maskedValue;
+    }
   });
 
   input.form.addEventListener('submit', handleSubmit);
