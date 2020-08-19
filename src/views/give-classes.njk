@@ -14,6 +14,7 @@
 {% block scripts %}
   <script src="/scripts/customSelect.js" defer="defer"></script>
   <script src="/scripts/addField.js" defer="defer"></script>
+  <script src="/scripts/phoneMask.js" defer="defer"></script>
 {% endblock scripts %}
 
 {% block headerContent %}
@@ -40,16 +41,18 @@
           <label for="name">Nome completo</label>
           <input type="text" name="name" id="name" required="required"/>
         </div>
-        <div class="input-block">
-          <label for="avatar">
-            Link da sua foto
-            <small>(comece com https://)</small>
-          </label>
-          <input type="url" name="avatar" id="avatar" required="required"/>
-        </div>
-        <div class="input-block">
-          <label for="phone_number">WhatsApp</label>
-          <input type="number" name="phone_number" id="phone_number" required="required"/>
+        <div class="input-group">
+          <div class="input-block">
+            <label for="avatar">
+              Link da sua foto
+              <small>(comece com https://)</small>
+            </label>
+            <input type="url" name="avatar" id="avatar" required="required"/>
+          </div>
+          <div class="input-block">
+            <label for="phone_number">WhatsApp</label>
+            <input class="input-mask" placeholder="() 9____ ____" type="text" name="phone_number" id="phone_number" required="required" minlength="15"/>
+          </div>
         </div>
         <div class="textarea-block">
           <label for="bio">Biografia</label>

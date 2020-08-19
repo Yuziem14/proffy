@@ -1,3 +1,12 @@
+.input-group {
+  margin: 2.4rem 0;
+}
+
+.input-block .input-mask::placeholder {
+  color: var(--color-small-info);
+  letter-spacing: 0.8rem;
+}
+
 .input-block,
 .textarea-block {
   position: relative;

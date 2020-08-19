@@ -120,6 +120,16 @@
     padding: 0 64px;
   }
 
+  #page-give-classes .input-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  #page-give-classes .input-group .input-block {
+    width: 48%;
+    margin: 0;
+  }
+
   .schedule-item {
     display: grid;
     grid-template-columns: 2fr repeat(2, 1fr);
