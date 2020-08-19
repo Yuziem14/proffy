@@ -1,5 +1,4 @@
 const phoneInputs = document.querySelectorAll('.input-mask');
-const form = document.querySelector('#create-class');
 
 phoneInputs.forEach(input => {
   input.addEventListener('input', e => {
