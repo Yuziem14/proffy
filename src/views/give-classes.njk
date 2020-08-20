@@ -13,7 +13,7 @@
 
 {% block scripts %}
   <script src="/scripts/customSelect.js" defer="defer"></script>
-  <script src="/scripts/addField.js" defer="defer"></script>
+  <script src="/scripts/schedules.js" defer="defer"></script>
   <script src="/scripts/phoneMask.js" defer="defer"></script>
 {% endblock scripts %}
 
@@ -94,6 +94,10 @@
           <div class="input-block">
             <label for="time_to">Até</label>
             <input type="time" name="time_to[]" id="time_to" required="required"/>
+          </div>
+
+          <div class="input-block action-button-block">
+            <button type="button" class="delete-button"></button>
           </div>
         </div>
       </fieldset>

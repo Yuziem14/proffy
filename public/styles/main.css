@@ -23,6 +23,8 @@
   --color-box-footer: #fafafc;
   --color-small-info: #c1bccc;
   --color-navigate-purple: #bda5f6;
+  --color-danger: #e33d3d;
+  --color-danger-hover: #f12e2e;
   font-size: 60%;
 }
 

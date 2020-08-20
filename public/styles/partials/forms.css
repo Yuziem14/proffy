@@ -34,6 +34,29 @@
   margin-top: 0.8rem;
 }
 
+.input-block .delete-button {
+  width: 100%;
+  min-height: 5.6rem;
+  display: flex;
+  align-self: flex-end;
+  font: 600 1.6rem Archivo, sans-serif;
+  color: var(--color-button-text);
+  border: 0;
+  border-radius: 0.8rem;
+  background-image: url(../../images/icons/trash.svg);
+  background-repeat: no-repeat;
+  background-size: 2.4rem;
+  background-position: center;
+  background-color: var(--color-danger);
+  cursor: pointer;
+  outline: 0;
+  transition: background 0.2s;
+}
+
+.input-block .delete-button:hover {
+  background-color: var(--color-danger-hover);
+}
+
 .select-block .select {
   outline: 0;
   padding: 0;
@@ -60,6 +83,10 @@
 
 .textarea-block:focus-within::after {
   bottom: 8px;
+}
+
+.action-button-block:focus-within::after {
+  height: 0;
 }
 
 label small {
