@@ -52,11 +52,17 @@ async function sendPageStudy(req, res) {
       });
     }
 
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+
     const proffys = await db.all(query);
 
     const serializedProffys = proffys.map(proffy => {
       return {
         ...proffy,
+        cost: formatter.format(proffy.cost),
         subject: getSubject(proffy.subject),
       };
     });

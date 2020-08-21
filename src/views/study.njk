@@ -66,8 +66,7 @@
             {{ proffy.bio }}
           </p>
           <footer>
-            <p>Preço/Hora<strong>R$
-                {{ proffy.cost }}</strong>
+            <p>Preço/Hora<strong>{{ proffy.cost }}</strong>
             </p>
             <a target="_blank" href="https://api.whatsapp.com/send?l=pt_BR&phone={{ proffy.phone_number }}&text=Tenho interesse na sua aula de {{ proffy.subject }}, {{ proffy.name }}" class="button">
               <img src="/images/icons/whatsapp.svg" alt="Whatsapp Icon"/>Entrar em contato
