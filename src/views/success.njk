@@ -1,0 +1,17 @@
+{% extends 'layouts/master.njk' %}
+{% set pageId = 'page-success' %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/styles/partials/page-success.css"/>
+{% endblock styles %}
+
+{% block scripts %}
+  <script src="/scripts/success.js" defer="defer"></script>
+{% endblock scripts %}
+
+{% block content %}
+  <img src="/images/icons/success-check-icon.svg" alt="">
+  <h1>Cadastro salvo!</h1>
+  <p>Tudo certo, seu cadastro está na nossa lista de professores. Agora é só ficar de olho no seu WhatsApp.</p>
+  <button id="access-list" data-subject="{{ subject }}" data-weekday="{{ weekday }}" data-time="{{ time }}">Acessar lista</button>
+{% endblock content %}
