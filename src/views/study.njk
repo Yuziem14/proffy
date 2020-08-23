@@ -65,6 +65,28 @@
           <p>
             {{ proffy.bio }}
           </p>
+          <section class="schedules">
+            {% for schedule in proffy.schedules %}
+              <div class="schedule-card {{ 'unavailable' if schedule.timeRanges.length === 0 }}">
+                <div class="weekday">
+                  <label>Dia</label>
+                  <p>{{ schedule.weekday }}</p>
+                </div>
+                <div class="time">
+                  <label>Horário</label>
+                  {% if schedule.timeRanges.length === 0 %}
+                    <p>-</p>
+                  {% else %}
+                    {%for timeRange in schedule.timeRanges %}
+                      <p>{{ timeRange[0] }}
+                        -
+                        {{ timeRange[1] }}</p>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </section>
           <footer>
             <p>Preço/Hora<strong>{{ proffy.cost }}</strong>
             </p>
