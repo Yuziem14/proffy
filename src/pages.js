@@ -93,7 +93,9 @@ async function saveClasses(req, res) {
 
     await Promise.all(insertAllSchedules);
 
+    const { HOST, PORT } = process.env;
     return res.render('success.njk', {
+      baseUrl: `http://${HOST}:${PORT}/study`,
       subject: data.subject,
       weekday: data.weekday[0],
       time: data.time_from[0],
