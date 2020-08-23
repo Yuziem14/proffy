@@ -1,26 +1,26 @@
-const Database = require('../db');
-const proffys = require('./mocks');
-const createProffy = require('../createProffy');
-const createClass = require('../createClass');
-const createSchedule = require('../createSchedule');
+const Proffy = require('../../repositories/proffy');
+const Classes = require('../../repositories/classes');
+const Schedule = require('../../repositories/schedule');
 
-async function run(db) {
+const proffys = require('./mocks');
+
+async function run() {
   const insertAllProffys = proffys.map(async proffy => {
     const { name, avatar, phone_number, bio } = proffy;
-    const { id: proffy_id } = await createProffy(db, {
+    const { id: proffy_id } = await Proffy.create({
       name,
       avatar,
       phone_number,
       bio,
     });
 
-    const { id: class_id } = await createClass(db, {
+    const { id: class_id } = await Classes.create({
       ...proffy.classObject,
       proffy_id,
     });
 
     const insertAllSchedules = proffy.schedules.map(async schedule => {
-      await createSchedule(db, { ...schedule, class_id });
+      await Schedule.create({ ...schedule, class_id });
     });
 
     await Promise.all(insertAllSchedules);
@@ -29,4 +29,4 @@ async function run(db) {
   await Promise.all(insertAllProffys);
 }
 
-Database.then(run);
+run().then(() => console.log('Database seeded'));
