@@ -93,9 +93,11 @@ async function saveClasses(req, res) {
 
     await Promise.all(insertAllSchedules);
 
-    let queryString = `?subject=${data.subject}&weekday=${data.weekday[0]}&time=${data.time_from[0]}`;
-
-    return res.redirect(`/study${queryString}`);
+    return res.render('success.njk', {
+      subject: data.subject,
+      weekday: data.weekday[0],
+      time: data.time_from[0],
+    });
   } catch (err) {
     console.log(err);
   }
