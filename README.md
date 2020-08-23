@@ -61,11 +61,13 @@ Enter in the cloned repository folder running: `cd proffy`
 
 1. In order to install dependencies, run: `npm install`
 
-2. In order to setup the database, run: `npm run db:migrate`
+2. In order to create an .env file, run: `cp .env.example .env` and config the HOST and PORT variables.
 
-3. In order to seed the database with some data, run: `npm run db:seed`. **Obs: This is an optional step.**
+3. In order to setup the database, run: `npm run db:migrate`
 
-4. Finally, run your server using: `npm run dev`
+4. In order to seed the database with some data, run: `npm run db:seed`. **Obs: This is an optional step.**
+
+5. Finally, run your server using: `npm run dev`
 
 _Obs: If you want, use yarn instead of npm._
 
