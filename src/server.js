@@ -1,6 +1,9 @@
+const dotenv = require('dotenv');
 const path = require('path');
 const express = require('express');
 const nunjucks = require('nunjucks');
+
+dotenv.config();
 
 const {
   sendPageStudy,
@@ -24,7 +27,5 @@ server.get('/study', sendPageStudy);
 server.get('/give-classes', sendPageGiveClasses);
 server.post('/save-classes', saveClasses);
 
-const PORT = 5500;
-server.listen(PORT, () =>
-  console.log(`Listening on http://127.0.0.1:${PORT}/ ...`)
-);
+const { HOST, PORT } = process.env;
+server.listen(PORT, () => console.log(`Listening on ${HOST}:${PORT}/ ...`));
