@@ -1,13 +1,8 @@
-const Database = require('./database/db');
-const createProffy = require('./database/createProffy');
-const createClass = require('./database/createClass');
-const createSchedule = require('./database/createSchedule');
-const {
-  subjects,
-  weekdays,
-  getSubject,
-  convertHoursToMinutes,
-} = require('./utils/format');
+const Proffy = require('./repositories/proffy');
+const Classes = require('./repositories/classes');
+const Schedule = require('./repositories/schedule');
+
+const { subjects, weekdays } = require('./utils/format');
 
 function sendPageLanding(req, res) {
   return res.render('index.njk');
@@ -18,30 +13,8 @@ async function sendPageStudy(req, res) {
   const isFiltersInvalid =
     !filters.subject || !filters.weekday || !filters.time;
 
-  const timeToMinutes = convertHoursToMinutes(filters.time || '0:00');
-
-  const query = `
-      SELECT classes.*, proffys.*
-      FROM proffys
-      JOIN classes ON (classes.proffy_id = proffys.id)
-      WHERE EXISTS(
-        SELECT class_schedule.*
-        FROM class_schedule
-        WHERE class_schedule.class_id = classes.id
-        AND class_schedule.weekday = ${filters.weekday}
-        AND class_schedule.time_from <= ${timeToMinutes}
-        AND class_schedule.time_to > ${timeToMinutes}
-      )
-      AND classes.subject = ${filters.subject}
-    `;
-
-  const totalProffysQuery = `
-    SELECT count(*) as total FROM proffys
-  `;
-
   try {
-    const db = await Database;
-    const { total } = await db.get(totalProffysQuery);
+    const total = await Proffy.count();
 
     if (isFiltersInvalid) {
       return res.render(`study.njk`, {
@@ -52,23 +25,20 @@ async function sendPageStudy(req, res) {
       });
     }
 
-    const formatter = new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    });
+    const proffys = await Proffy.filter(filters, true);
 
-    const proffys = await db.all(query);
-
-    const serializedProffys = proffys.map(proffy => {
-      return {
-        ...proffy,
-        cost: formatter.format(proffy.cost),
-        subject: getSubject(proffy.subject),
-      };
-    });
+    const proffysWithSchedules = await Promise.all(
+      proffys.map(async proffy => {
+        const schedules = await Schedule.allFromProffy(proffy.id, true);
+        return {
+          ...proffy,
+          schedules,
+        };
+      })
+    );
 
     return res.render('study.njk', {
-      proffys: serializedProffys,
+      proffys: proffysWithSchedules,
       filters,
       subjects,
       weekdays,
@@ -101,23 +71,21 @@ async function saveClasses(req, res) {
   const schedules = data.weekday.map((weekday, index) => {
     return {
       weekday,
-      time_from: convertHoursToMinutes(data.time_from[index]),
-      time_to: convertHoursToMinutes(data.time_to[index]),
+      time_from: data.time_from[index],
+      time_to: data.time_to[index],
     };
   });
 
   try {
-    const db = await Database;
+    const { id: proffy_id } = await Proffy.create(proffy);
 
-    const { id: proffy_id } = await createProffy(db, proffy);
-
-    const { id: class_id } = await createClass(db, {
+    const { id: class_id } = await Classes.create({
       ...classObject,
       proffy_id,
     });
 
     const insertAllSchedules = schedules.map(async schedule => {
-      await createSchedule(db, {
+      await Schedule.create({
         ...schedule,
         class_id,
       });
